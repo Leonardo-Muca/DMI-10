@@ -1,12 +1,11 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Colors} from '../theme/theme';
-import { HomeUser } from '../HomeUser/screens/HomePage';
+import {HomeAdmin} from '../Admin/screens/AdminScreen';
 
 const Stack = createNativeStackNavigator();
 
-export const HomeUserStack = () => {
+export const HomeStack = () => {
   return (
     <Stack.Navigator
       screenOptions={route => ({
@@ -22,12 +21,12 @@ export const HomeUserStack = () => {
         headerBackButtonMenuEnabled: false,
         headerTintColor: 'white',
       })}>
-       <Stack.Screen
-        name="HomeUser"
+      <Stack.Screen
+        name="HomeAdmin"
         options={{
-          title: 'Home User',
+          title: 'Home Admin',
         }}
-        component={HomeUser}
+        component={HomeAdmin}
       />
     </Stack.Navigator>
   );

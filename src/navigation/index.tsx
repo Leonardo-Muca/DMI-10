@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {HomeStack} from './HomeStack';
 import {Login} from '../Login/screens/Login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {HomeUserStack} from './HomeUserStack';
+import { HomeStack } from './AdminStack';
+import { HomeUserStack } from './UserStack';
 
 export const AppNavigation = () => {
   const [isLogged, setIsLogged] = useState<boolean>(false);

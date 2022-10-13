@@ -21,19 +21,6 @@ export const Login = ({onPress}: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const login = async () => {
-  //   if (email && password) {
-  //     if (email == 'admin@admin.com' && password == 'admin') {
-  //       onPress(true);
-  //       await AsyncStorage.setItem('tipo', 'Admin');
-  //     }
-  //     if (email == 'user@user.com' && password == 'user') {
-  //       onPress(true);
-  //       await AsyncStorage.setItem('tipo', 'User');
-  //     }
-  //   }
-  // };
-
   const accesLogin = async () => {
     if (email && password) {
       const requestOptions = {
@@ -62,7 +49,7 @@ export const Login = ({onPress}: Props) => {
     <View style={{flex: 100, backgroundColor: 'white'}}>
       <View style={styles.firstContainer}>
         <Image
-          source={require('../../../assets/img/2.png')}
+          source={require('../../../assets/img/spotify.png')}
           style={styles.img}
         />
       </View>
