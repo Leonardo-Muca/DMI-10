@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   AppRegistry,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from '../styles/HomeStyles';
@@ -20,44 +21,74 @@ export const Login = ({onPress}: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const login = async () => {
+  // const login = async () => {
+  //   if (email && password) {
+  //     if (email == 'admin@admin.com' && password == 'admin') {
+  //       onPress(true);
+  //       await AsyncStorage.setItem('tipo', 'Admin');
+  //     }
+  //     if (email == 'user@user.com' && password == 'user') {
+  //       onPress(true);
+  //       await AsyncStorage.setItem('tipo', 'User');
+  //     }
+  //   }
+  // };
+
+  const accesLogin = async () => {
     if (email && password) {
-      if (email == 'admin@admin.com' && password == 'admin') {
-        onPress(true);
-        await AsyncStorage.setItem('tipo', 'Admin');
-      }
-      if (email == 'user@user.com' && password == 'user') {
-        onPress(true);
-        await AsyncStorage.setItem('tipo', 'User');
-      }
+      const requestOptions = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, password}),
+      };
+      fetch(
+        'https://equipo4-4c-2do-parcial-awos.herokuapp.com/api/login',
+        requestOptions,
+      )
+        .then(response => response.json())
+        .then(async data => {
+          if (data.ok == true) {
+            onPress(true);
+            await AsyncStorage.setItem('tipo', 'Admin');
+            await AsyncStorage.setItem('name', data.usrDB.name);
+          }
+        });
+    } else {
+      console.log('Campos requeridos');
     }
   };
 
   return (
-    <View style={{flex: 100}}>
+    <View style={{flex: 100, backgroundColor: 'white'}}>
       <View style={styles.firstContainer}>
-        <Text style={styles.textEscanner}>Sing In</Text>
-        <View style={styles.spaceCode}></View>
+        <Image
+          source={require('../../../assets/img/2.png')}
+          style={styles.img}
+        />
       </View>
       <KeyboardAvoidingView style={styles.secondContainer}>
         <TextInput
           style={styles.input}
-          placeholder={'Correo Electronico'}
-          placeholderTextColor={'white'}
+          placeholder={'Email address or username'}
+          placeholderTextColor={'black'}
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
           style={styles.input}
-          placeholder={'Contraseña'}
-          placeholderTextColor={'white'}
+          placeholder={'Password'}
+          placeholderTextColor={'black'}
           value={password}
+          secureTextEntry={true}
           onChangeText={setPassword}
         />
-        <TouchableOpacity onPress={() => login()} style={styles.button}>
-          <Text style={styles.textButton}>Enviar</Text>
+        <TouchableOpacity onPress={() => accesLogin()} style={styles.button}>
+          <Text style={styles.textButton}>LOG IN</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      <View style={styles.thirdContainer}>
+        <Text style={styles.forgotPassword}>Forgot your passwrod?</Text>
+      </View>
     </View>
   );
 };
